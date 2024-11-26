@@ -1,56 +1,81 @@
 let mascotas = [];
 
 function registrarMascota() {
+    // Obtener datos del formulario
     const nombre = document.getElementById("nombreMascota").value;
     const raza = document.getElementById("raza").value;
     const edad = document.getElementById("edad").value;
     const color = document.getElementById("color").value;
+    const vacuna = document.getElementById("vacunas").value;
+    const fechaVacuna = document.getElementById("fechaVacuna").value;
+    const veterinario = document.getElementById("veterinario").value;
+    const desparasitacion = document.getElementById("desparasitacion").value;
+    const fechaDesparasitacion = document.getElementById("fechaDesparasitacion").value;
+    const examenes = document.getElementById("examenes").value;
 
-    const mascota = { nombre, raza, edad, color };
+    // Crear un objeto con la información de la mascota
+    const mascota = {
+        nombre,
+        raza,
+        edad,
+        color,
+        carnetVacunacion: {
+            vacuna,
+            fechaVacuna,
+            veterinario,
+            desparasitacion,
+            fechaDesparasitacion,
+        },
+        historialMedico: examenes,
+    };
+
+    // Agregar la mascota al arreglo
     mascotas.push(mascota);
 
-    mostrarPrevisualizacion(mascota);
+    // Actualizar la vista previa y las estadísticas
+    mostrarMascotasRegistradas();
     actualizarEstadisticas();
 }
 
-function mostrarPrevisualizacion(mascota) {
-    const vistaPrev = document.getElementById("vista-previa");
-    vistaPrev.innerHTML = `
-        <h4>Mascota Registrada</h4>
-        <p><strong>Nombre:</strong> ${mascota.nombre}</p>
-        <p><strong>Raza:</strong> ${mascota.raza}</p>
-        <p><strong>Edad:</strong> ${mascota.edad}</p>
-        <p><strong>Color:</strong> ${mascota.color}</p>
-    `;
+function mostrarMascotasRegistradas() {
+    const contenedor = document.getElementById("mascotas-registradas");
+    contenedor.innerHTML = mascotas.map(mascota => `
+        <div class="mascota">
+            <h4>${mascota.nombre} (${mascota.raza})</h4>
+            <p><strong>Edad:</strong> ${mascota.edad} años</p>
+            <p><strong>Color:</strong> ${mascota.color}</p>
+            <h5>Carnet de Vacunación</h5>
+            <p><strong>Vacuna:</strong> ${mascota.carnetVacunacion.vacuna} (${mascota.carnetVacunacion.fechaVacuna})</p>
+            <p><strong>Veterinario:</strong> ${mascota.carnetVacunacion.veterinario}</p>
+            <p><strong>Desparasitación:</strong> ${mascota.carnetVacunacion.desparasitacion || "No aplica"} (${mascota.carnetVacunacion.fechaDesparasitacion || "No aplica"})</p>
+            <h5>Historial Médico</h5>
+            <p>${mascota.historialMedico || "No hay historial médico registrado"}</p>
+        </div>
+    `).join("");
 }
 
 function actualizarEstadisticas() {
-    const ctx = document.getElementById("estadisticasCanvas").getContext("2d");
-    const total = mascotas.length;
+    const ctx = document.getElementById("chartCanvas").getContext("2d");
+    const razas = mascotas.reduce((acc, mascota) => {
+        acc[mascota.raza] = (acc[mascota.raza] || 0) + 1;
+        return acc;
+    }, {});
 
     new Chart(ctx, {
-        type: "doughnut",
+        type: "bar",
         data: {
-            labels: ["Mascotas Registradas"],
+            labels: Object.keys(razas),
             datasets: [{
-                data: [total],
-                backgroundColor: ["#4CAF50"]
-            }]
-        }
+                label: "Cantidad de Mascotas",
+                data: Object.values(razas),
+                backgroundColor: "#4CAF50",
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+            },
+        },
     });
-}
-
-function loginCliente() {
-    const usuario = document.getElementById("usuario").value;
-    const password = document.getElementById("password").value;
-
-    if (usuario === "cliente" && password === "1234") {
-        const infoMascotas = mascotas.map(m => `
-            <p><strong>Nombre:</strong> ${m.nombre}</p>
-            <p><strong>Raza:</strong> ${m.raza}</p>
-        `).join("");
-        document.getElementById("info-mascotas").innerHTML = infoMascotas;
-    } else {
-        alert("Usuario o contraseña incorrectos.");
-    }
 }
