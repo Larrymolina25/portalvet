@@ -1,56 +1,213 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
 }
 
+/* Encabezado */
 header {
-    background: #4CAF50;
+    background-color: #042536;
     color: white;
-    padding: 1rem;
+    padding: 1rem 0;
     text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.menu {
+/* Menú de navegación */
+nav .menu {
     list-style: none;
-    display: flex;
-    justify-content: center;
     padding: 0;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
 }
 
-.menu li {
-    margin: 0 1rem;
+nav .menu li {
+    display: inline;
 }
 
-.menu a {
-    color: white;
+nav .menu a {
     text-decoration: none;
+    color: white;
     font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.main-image {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 1rem auto;
+nav .menu a:hover {
+    background-color: #45a049;
 }
 
-form label {
-    display: block;
-    margin: 0.5rem 0;
+/* Secciones */
+section {
+    padding: 2rem;
 }
 
-form input, form button {
-    width: 100%;
-    padding: 0.5rem;
+/* Portada */
+#portada {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+.portada-imagen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: bottom;
+    align-items: bottom;
+}
+
+.imagen-portada {
+    max-width: 20%;
+    max-height: 20%;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.texto-portada {
+    z-index: 10;
+    text-align: center;
+    color: #333;
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.texto-portada h2 {
+    font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
-footer {
-    background: #333;
+.texto-portada p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-portada {
+    background-color: #042536;
     color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.btn-portada:hover {
+    background-color: #45a049;
+}
+
+/* Texto descriptivo en la portada */
+.texto-descriptivo {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.texto-descriptivo h2 {
+    color: #042536;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.texto-descriptivo p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+
+/* Formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+form input, form select, form button {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    background-color: #042536;
+    color: white;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+#edadesHijosContainer {
+    margin-top: 1rem;
+}
+
+#tipoMascotaContainer {
+    display: none;
+    margin-top: 1rem;
+}
+
+/* Gráfica */
+#grafica {
+    max-width: 600px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+canvas {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Misión y Visión */
+#mision-vision {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+#mision-vision h2 {
+    font-size: 2rem;
+    color: #4caf50;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
     text-align: center;
     padding: 1rem;
+    background-color: #333;
+    color: white;
     margin-top: 2rem;
 }
