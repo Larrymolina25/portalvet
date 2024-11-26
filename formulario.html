@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Mascotas</title>
+    <title>Formulario de Empleados</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-        <h1>Registro de Mascotas</h1>
-        <nav>
-            <ul class="menu">
-                <li><a href="index.html">Home</a></li>
+        <h1>Registro de Empleados</h1>
+          <nav>
+             <ul class="menu">
+                <li><a href="Index.html">Home</a></li>
                 <li><a href="mision-vision.html">Misión y Visión</a></li>
             </ul>
         </nav>
@@ -20,63 +20,56 @@
 
     <main>
         <section id="formulario">
-            <h2>Formulario de Registro de Mascotas</h2>
-            <form id="mascota-form">
-                <!-- Datos básicos -->
-                <h3>Datos Básicos</h3>
-                <label for="nombreMascota">Nombre:</label>
-                <input type="text" id="nombreMascota" name="nombreMascota" required>
+            <h2>Formulario de Registro</h2>
+            <form id="employee-form">
+                <label for="nombres">Nombres:</label>
+                <input type="text" id="nombres" name="nombres" required>
 
-                <label for="raza">Raza:</label>
-                <input type="text" id="raza" name="raza" required>
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" id="apellidos" name="apellidos" required>
+
+                <label for="tipo-identificacion">Tipo de Identificación:</label>
+                <select id="tipo-identificacion" name="tipo-identificacion" required>
+                    <option value="cedula-ciudadania">Cédula de Ciudadanía</option>
+                    <option value="cedula-extranjeria">Cédula de Extranjería</option>
+                    <option value="pasaporte">Pasaporte</option>
+                </select>
+
+                <label for="identificacion">Identificación:</label>
+                <input type="text" id="identificacion" name="identificacion" required>
 
                 <label for="edad">Edad:</label>
-                <input type="number" id="edad" name="edad" min="0" required>
+                <input type="number" id="edad" name="edad" min="18" required>
 
-                <label for="color">Color:</label>
-                <input type="text" id="color" name="color" required>
+                <label for="cantidadHijos">Cantidad de Hijos:</label>
+                <input type="number" id="cantidadHijos" name="cantidadHijos" min="0" required>
 
-                <!-- Carnet de vacunación -->
-                <h3>Carnet de Vacunación</h3>
-                <label for="vacunas">Nombre de la Vacuna:</label>
-                <input type="text" id="vacunas" name="vacunas" required>
+                <div id="edadesHijosContainer"></div>
 
-                <label for="fechaVacuna">Fecha de la Vacuna:</label>
-                <input type="date" id="fechaVacuna" name="fechaVacuna" required>
+                <label for="mascotas">¿Tiene Mascotas?</label>
+                <select id="mascotas" name="mascotas" required>
+                    <option value="No">No</option>
+                    <option value="Sí">Sí</option>
+                </select>
 
-                <label for="veterinario">Veterinario Responsable:</label>
-                <input type="text" id="veterinario" name="veterinario" required>
+                <div id="tipoMascotaContainer" style="display: none;">
+                    <label for="tipoMascota">Tipo de Mascota:</label>
+                    <input type="text" id="tipoMascota" name="tipoMascota">
+                </div>
 
-                <label for="desparasitacion">Desparasitación:</label>
-                <input type="text" id="desparasitacion" name="desparasitacion">
-
-                <label for="fechaDesparasitacion">Fecha de Desparasitación:</label>
-                <input type="date" id="fechaDesparasitacion" name="fechaDesparasitacion">
-
-                <!-- Historial médico -->
-                <h3>Historial Médico</h3>
-                <label for="examenes">Resultados de Exámenes:</label>
-                <textarea id="examenes" name="examenes" rows="5" placeholder="Describa los resultados de los exámenes realizados"></textarea>
-
-                <button type="button" onclick="registrarMascota()">Registrar Mascota</button>
+                <button type="submit">Registrar</button>
             </form>
         </section>
 
-        <section id="vista-previa">
-            <h2>Mascotas Registradas</h2>
-            <div id="mascotas-registradas"></div>
-        </section>
-
         <section id="grafica">
-            <h2>Estadísticas</h2>
+            <h2>Empleados Registrados</h2>
             <canvas id="chartCanvas"></canvas>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Registro de Mascotas</p>
+        <p>&copy; 2024 Registro de Empleados</p>
     </footer>
     <script src="script.js"></script>
 </body>
 </html>
-
