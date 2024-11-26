@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Veterinario</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Portal Veterinario</h1>
+        <nav>
+            <ul class="menu">
+                <li><a href="#veterinarios">Área para Veterinarios</a></li>
+                <li><a href="#clientes">Área para Clientes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Veterinarios -->
+        <section id="veterinarios">
+            <h2>Área para Veterinarios</h2>
+            <form id="veterinarios-form">
+                <h3>Registrar Información de Mascota</h3>
+                <label for="nombreMascota">Nombre:</label>
+                <input type="text" id="nombreMascota" required>
+
+                <label for="raza">Raza:</label>
+                <input type="text" id="raza" required>
+
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" min="0" required>
+
+                <label for="color">Color:</label>
+                <input type="text" id="color" required>
+
+                <h4>Carnet de Vacunación</h4>
+                <label for="vacunas">Nombre de la Vacuna:</label>
+                <input type="text" id="vacunas">
+
+                <label for="fechaVacuna">Fecha:</label>
+                <input type="date" id="fechaVacuna">
+
+                <label for="veterinario">Veterinario Responsable:</label>
+                <input type="text" id="veterinario">
+
+                <label for="desparasitacion">Desparasitación:</label>
+                <input type="text" id="desparasitacion">
+
+                <label for="fechaDesparasitacion">Fecha:</label>
+                <input type="date" id="fechaDesparasitacion">
+
+                <h4>Historial Médico</h4>
+                <label for="examenes">Resultados de Exámenes:</label>
+                <textarea id="examenes"></textarea>
+
+                <button type="button" onclick="registrarMascota()">Registrar Mascota</button>
+            </form>
+
+            <h3>Previsualización</h3>
+            <div id="vista-previa"></div>
+
+            <h3>Estadísticas</h3>
+            <canvas id="estadisticasCanvas"></canvas>
+        </section>
+
+        <!-- Sección de Clientes -->
+        <section id="clientes">
+            <h2>Área para Clientes</h2>
+            <form id="clientes-login">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required>
+
+                <button type="button" onclick="loginCliente()">Iniciar Sesión</button>
+            </form>
+
+            <div id="informacion-cliente">
+                <h3>Información de Mascotas</h3>
+                <div id="info-mascotas"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Portal Veterinario</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
