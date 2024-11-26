@@ -1,213 +1,95 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-}
+// Inicializamos variables globales
+let empleadosRegistrados = 0;
+let edadesEmpleados = []; // Array para almacenar las edades de los empleados
 
-/* Encabezado */
-header {
-    background-color: #042536;
-    color: white;
-    padding: 1rem 0;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+// Inicializamos la gráfica
+const ctx = document.getElementById('chartCanvas').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'bar',  // Usamos barras
+    data: {
+        labels: [], // Se agregarán las etiquetas de cada empleado
+        datasets: [{
+            label: 'Edad de los Empleados',
+            data: [], // Se llenará con las edades de los empleados
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100, // Establecemos un límite máximo en el eje Y (para las edades)
+                title: {
+                    display: true,
+                    text: 'Edad'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Empleado'
+                }
+            }
+        }
+    }
+});
 
-/* Menú de navegación */
-nav .menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-}
+// Elementos del DOM
+const form = document.getElementById('employee-form');
+const edadesHijosContainer = document.getElementById('edadesHijosContainer');
+const mascotas = document.getElementById('mascotas');
+const tipoMascotaContainer = document.getElementById('tipoMascotaContainer');
 
-nav .menu li {
-    display: inline;
-}
+// Manejar la lógica de las edades de los hijos
+form.cantidadHijos.addEventListener('input', function () {
+    const cantidad = parseInt(this.value, 10) || 0;
+    edadesHijosContainer.innerHTML = '';
+    for (let i = 1; i <= cantidad; i++) {
+        const label = document.createElement('label');
+        label.textContent = `Edad del Hijo ${i}:`;
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.name = `edadHijo${i}`;
+        input.required = true;
+        edadesHijosContainer.appendChild(label);
+        edadesHijosContainer.appendChild(input);
+    }
+});
 
-nav .menu a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+// Mostrar tipo de mascota si seleccionan "Sí"
+mascotas.addEventListener('change', function () {
+    tipoMascotaContainer.style.display = this.value === 'Sí' ? 'block' : 'none';
+});
 
-nav .menu a:hover {
-    background-color: #45a049;
-}
+// Procesar el formulario
+form.addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitamos recargar la página
 
-/* Secciones */
-section {
-    padding: 2rem;
-}
+    // Obtenemos la edad del empleado
+    const edad = parseInt(form.edad.value, 10);
 
-/* Portada */
-#portada {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    position: relative;
-}
+    // Aumentamos el contador de empleados registrados
+    empleadosRegistrados++;
 
-.portada-imagen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: bottom;
-    align-items: bottom;
-}
+    // Añadimos la edad a la lista de edades
+    edadesEmpleados.push(edad);
 
-.imagen-portada {
-    max-width: 20%;
-    max-height: 20%;
-    object-fit: cover;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    // Actualizamos las etiquetas (Empleados 1, Empleados 2, ...)
+    chart.data.labels.push(`Empleado ${empleadosRegistrados}`);
 
-.texto-portada {
-    z-index: 10;
-    text-align: center;
-    color: #333;
-    max-width: 500px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    // Actualizamos los datos de la gráfica con la edad del empleado
+    chart.data.datasets[0].data.push(edad);
 
-.texto-portada h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
+    // Actualizamos la gráfica
+    chart.update();
 
-.texto-portada p {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
+    // Reiniciar el formulario
+    form.reset();
+    edadesHijosContainer.innerHTML = '';
+    tipoMascotaContainer.style.display = 'none';
 
-.btn-portada {
-    background-color: #042536;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.btn-portada:hover {
-    background-color: #45a049;
-}
-
-/* Texto descriptivo en la portada */
-.texto-descriptivo {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.texto-descriptivo h2 {
-    color: #042536;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.texto-descriptivo p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #333;
-}
-
-
-/* Formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-form input, form select, form button {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-form button {
-    background-color: #042536;
-    color: white;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #45a049;
-}
-
-#edadesHijosContainer {
-    margin-top: 1rem;
-}
-
-#tipoMascotaContainer {
-    display: none;
-    margin-top: 1rem;
-}
-
-/* Gráfica */
-#grafica {
-    max-width: 600px;
-    margin: 2rem auto;
-    text-align: center;
-}
-
-canvas {
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Misión y Visión */
-#mision-vision {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: justify;
-    line-height: 1.6;
-}
-
-#mision-vision h2 {
-    font-size: 2rem;
-    color: #4caf50;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
-    margin-top: 2rem;
-}
+    alert('Empleado registrado exitosamente.');
+});
