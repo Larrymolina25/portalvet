@@ -1,0 +1,76 @@
+let mascotas = [];
+
+function registrarMascota() {
+    const mascota = {
+        nombre: document.getElementById("nombreMascota").value,
+        raza: document.getElementById("raza").value,
+        edad: document.getElementById("edad").value,
+        color: document.getElementById("color").value,
+        carnet: {
+            vacuna: document.getElementById("vacunas").value,
+            fechaVacuna: document.getElementById("fechaVacuna").value,
+            veterinario: document.getElementById("veterinario").value,
+            desparasitacion: document.getElementById("desparasitacion").value,
+            fechaDesparasitacion: document.getElementById("fechaDesparasitacion").value
+        },
+        historial: document.getElementById("examenes").value
+    };
+
+    mascotas.push(mascota);
+    mostrarPrevisualizacion(mascota);
+    actualizarEstadisticas();
+}
+
+function mostrarPrevisualizacion(mascota) {
+    const vistaPrevia = document.getElementById("vista-previa");
+    vistaPrevia.innerHTML = `
+        <h4>Mascota Registrada</h4>
+        <p><strong>Nombre:</strong> ${mascota.nombre}</p>
+        <p><strong>Raza:</strong> ${mascota.raza}</p>
+        <p><strong>Edad:</strong> ${mascota.edad}</p>
+        <p><strong>Color:</strong> ${mascota.color}</p>
+        <h4>Carnet de Vacunación</h4>
+        <p><strong>Vacuna:</strong> ${mascota.carnet.vacuna} (${mascota.carnet.fechaVacuna})</p>
+        <p><strong>Veterinario:</strong> ${mascota.carnet.veterinario}</p>
+        <p><strong>Desparasitación:</strong> ${mascota.carnet.desparasitacion} (${mascota.carnet.fechaDesparasitacion})</p>
+        <h4>Historial Médico</h4>
+        <p>${mascota.historial}</p>
+    `;
+}
+
+function actualizarEstadisticas() {
+    const ctx = document.getElementById("estadisticasCanvas").getContext("2d");
+    const totalPerros = mascotas.filter(m => m.raza.toLowerCase() === "perro").length;
+    const totalGatos = mascotas.filter(m => m.raza.toLowerCase() === "gato").length;
+
+    new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: ["Perros", "Gatos"],
+            datasets: [{
+                label: "Mascotas Registradas",
+                data: [totalPerros, totalGatos],
+                backgroundColor: ["#4caf50", "#2196f3"]
+            }]
+        }
+    });
+}
+
+function loginCliente() {
+    const usuario = document.getElementById("usuario").value;
+    const password = document.getElementById("password").value;
+
+    // Autenticación básica simulada
+    if (usuario === "cliente" && password === "1234") {
+        document.getElementById("info-mascotas").innerHTML = `
+            <h4>Información de Mascotas</h4>
+            ${mascotas.map(m => `
+                <p><strong>Nombre:</strong> ${m.nombre}</p>
+                <p><strong>Raza:</strong> ${m.raza}</p>
+                <hr>
+            `).join("")}
+        `;
+    } else {
+        alert("Usuario o contraseña incorrectos.");
+    }
+}
